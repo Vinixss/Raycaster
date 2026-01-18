@@ -1,4 +1,5 @@
 #define SDL_MAIN_USE_CALLBACKS
+#include <stdio.h>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
@@ -29,19 +30,29 @@ void set_player_pos(SDL_FRect * p, int x, int y) {
 }
 
 void player_move(int d_x, int d_y) {
+    //We want the player to be able to get right to the edge of the wall, without going any further
     int x_ind_t = (player_x + d_x) / CELL_SIZE;
     int x_ind_b = (player_x + d_x + PLAYER_SIZE) / CELL_SIZE;
     int y_ind_t = (player_y + d_y) / CELL_SIZE;
     int y_ind_b = (player_y + d_y + PLAYER_SIZE) / CELL_SIZE;
 
-    if(world[x_ind_t + y_ind_t * 8] == 0 &&
-        world[x_ind_b + y_ind_t * 8] == 0 &&
-        world[x_ind_t + y_ind_b * 8] == 0 &&
-        world[x_ind_b + y_ind_b * 8] == 0)
-    {
-        player_x += d_x;
-        player_y += d_y;
+    player_x += d_x;
+    player_y += d_y;
+
+    if(d_x < 0 && world[x_ind_t + (player_y / CELL_SIZE) * 8] == 1 ) {
+        player_x = (x_ind_t + 1) * CELL_SIZE;
     }
+    else if(d_x > 0 && world[x_ind_b + (player_y / CELL_SIZE) * 8] == 1) {
+        player_x = x_ind_b * CELL_SIZE - PLAYER_SIZE;
+    }
+
+    if(d_y < 0 && world[(player_x / CELL_SIZE) + y_ind_t * 8] == 1 ) {
+        player_y = (y_ind_t + 1) * CELL_SIZE;
+    }
+    else if(d_y > 0 && world[(player_x / CELL_SIZE) + y_ind_b * 8] == 1 ) {
+        player_y = y_ind_b * CELL_SIZE - PLAYER_SIZE;
+    }
+    
 }
 
 SDL_AppResult handle_key_press(SDL_Keycode key_code) {
@@ -60,7 +71,7 @@ SDL_AppResult handle_key_press(SDL_Keycode key_code) {
             break;
         default:
             break;
-    }
+    } 
 
     return SDL_APP_CONTINUE;
 }
@@ -107,7 +118,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
             SDL_RenderFillRect(r_Renderer, &r);
         }
     }
-    
+    printf("Player is at (%i, %i)\n", player_x, player_y);
     SDL_RenderPresent(r_Renderer);
     return SDL_APP_CONTINUE;
 }
