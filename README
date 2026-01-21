@@ -3,3 +3,16 @@ Using Merged Header Placement as the project will be fairly small and I don't fe
 Putting the EXE into a bin folder, but who knows maybe I'll actually make a ./build folder
 
 Probably want to include a Conan file or a VCPKG file to make installing SDL3 easy for future use
+
+(Actual Readme):
+
+C Based Raycasting!
+
+Required Dependancies:
+1) SDL3
+
+Recommended Setup:
+    1) Pacman:
+        Install SDL3 using pacman (natively on Linux or via some MinGW version on Windows). Be sure to grab the DLL and move it to the same folder as the directory your executable will be at
+    2) Preinstalled Binaries:
+        Download SDL3 via their website. Move ./include and ./lib to a folder of your choice. Then, edit the make file to reference the SDL3 directories.
