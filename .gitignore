@@ -1,24 +1,4 @@
 /.vscode/
 src/woodeneye.c
 main.exe
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 external/SDL/**
-=======
-external/.
->>>>>>> dde2e75 (backup)
-=======
-external/*
->>>>>>> 389be7c (Updated git ignore to ignore the External directories contents)
-=======
-external/
->>>>>>> 6703088 (Hopefully fixed external)
-=======
-external/**
->>>>>>> 5b33a98 (Fixed gitignore)
-=======
-external/SDL/**
->>>>>>> 478a15b (Lets see)
