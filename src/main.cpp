@@ -90,19 +90,23 @@ void update_player(Player * p, float time) {
     if(p->vel[0] < 0 && world[p->world_pos[0] + p->old_world_pos[1] * 8] == 1 ) {
         p->world_pos[0] += 1;
         p->pos[0] = p->world_pos[0] * CELL_SIZE;
+        printf("Player is at (%.1f, %.1f) and cell (%d, %d)\n", p->pos[0], p->pos[1], p->world_pos[0], p->world_pos[1]);
     }
     else if(p->vel[0] > 0 && world[p->world_pos[2] + p->old_world_pos[1] * 8] == 1) {
+        //p->world_pos[0] -= 1;
         p->pos[0] = p->world_pos[2] * CELL_SIZE - PLAYER_SIZE;
-        p->world_pos[0] -= 1;
+        printf("Player is at (%.1f, %.1f) and cell (%d, %d)\n", p->pos[0], p->pos[1], p->world_pos[0], p->world_pos[1]);
     }
 
     if(p->vel[1] < 0 && world[p->old_world_pos[0] + p->world_pos[1] * 8] == 1 ) {
         p->world_pos[1] += 1;
         p->pos[1] = p->world_pos[1] * CELL_SIZE;
+        printf("Player is at (%.1f, %.1f) and cell (%d, %d)\n", p->pos[0], p->pos[1], p->world_pos[0], p->world_pos[1]);
     }
     else if(p->vel[1] > 0 && world[p->old_world_pos[3] + p->world_pos[1] * 8] == 1) {
+        //p->world_pos[1] -= 1;
         p->pos[1] = p->world_pos[3] * CELL_SIZE - PLAYER_SIZE;
-        p->world_pos[1] -= 1;
+        printf("Player is at (%.1f, %.1f) and cell (%d, %d)\n", p->pos[0], p->pos[1], p->world_pos[0], p->world_pos[1]);
     }
 
     p->vel[0] = p->vel[1] = 0;
@@ -167,7 +171,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
             SDL_RenderFillRect(state->r_Renderer, &r);
         }
     }
-    printf("Player is at (%.1f, %.1f) and cell (%d, %d)\n", state->player.pos[0], state->player.pos[1], state->player.world_pos[0], state->player.world_pos[1]);
+    
     SDL_RenderPresent(state->r_Renderer);
     prevTime = curTime;
     return SDL_APP_CONTINUE;
